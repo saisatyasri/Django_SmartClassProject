@@ -12,6 +12,7 @@ from django.forms import modelformset_factory
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.contrib import messages
+from datetime import date
 
 
 
@@ -132,13 +133,14 @@ def teacher_dashboard_view(request):
     total_correct = StudentResponse.objects.filter(is_correct=True).count()
 
     accuracy = round((total_correct / total_questions) * 100, 2) if total_questions > 0 else 0
-
+    today_date = date.today()
     # 🔹 Pass everything to template
     context = {
         'total_students': total_students,
         'total_quizzes': total_quizzes,
         'total_questions': total_questions,
         'total_correct': total_correct,
+        'today_date': today_date,
         'accuracy': accuracy,
         'dark_mode': dark_mode  # ✅ now defined
     }
